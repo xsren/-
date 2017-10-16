@@ -25,8 +25,16 @@
 
             if (next) {
                 console.log(i);
-                setTimeout(function() { console.log("downlod...");
-                                       document.querySelector("#exportExcel").click();
+                setTimeout(function() {
+                    console.log("downlod...");
+                    //document.querySelector("#exportExcel").click();
+                    $("#searcherForm #exportFlag").val(1);
+                    var controlName = $("#searcherForm #controlName").val();
+                    ES.postAjaxSingle(controlName,$("#searcherForm").serialize(),function(filePath){
+                        $("#searcherForm #exportFlag").val(0);
+            //          alert(encodeURI(filePath));
+                        window.location.href="downLoad.do?down_excel&filePath="+encodeURIComponent(filePath);
+                    });
                                       }, 5000);
                 setTimeout(function() { console.log("next...");
                                        next.click();
@@ -35,8 +43,6 @@
             } else {
                 alert("翻到了最后一页："+i);
             }
-
-
 
         }
 
